@@ -8,7 +8,7 @@
     "wrangler": "3.25.0"
   },
   "devDependencies": {
-    "@types/jest": "29.5.11",
+    "@types/jest": "29.5.12",
     "@types/node": "16.18.65",
     "prisma": "/tmp/prisma-0.0.0.tgz"
   }
