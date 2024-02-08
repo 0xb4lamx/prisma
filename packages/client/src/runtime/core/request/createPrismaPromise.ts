@@ -1,3 +1,5 @@
+import { AsyncLocalStorage } from 'async_hooks'
+
 import type { PrismaPromise, PrismaPromiseTransaction } from './PrismaPromise'
 
 export type PrismaPromiseCallback = (transaction?: PrismaPromiseTransaction) => PrismaPromise<unknown>
@@ -20,6 +22,8 @@ export type PrismaPromiseFactory = (callback: PrismaPromiseCallback) => PrismaPr
  */
 export function createPrismaPromiseFactory(transaction?: PrismaPromiseTransaction): PrismaPromiseFactory {
   return function createPrismaPromise(callback) {
+    //force Async binding on Prisma promises
+    callback = AsyncLocalStorage.bind(callback)
     let promise: PrismaPromise<unknown> | undefined
     const _callback = (callbackTransaction = transaction) => {
       try {
